@@ -1,0 +1,57 @@
+        {% extends 'music/base.html' %}
+        {% block title %}Playlists{% endblock %}
+        {% block playslists_active %}active{% endblock %}
+        
+        {% block body %}
+        <div class="container-fluid songs-container">
+        
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                        <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'music:songs' 'all' %}">View All</a></li>
+                        <li role="presentation" {% if filter_by == 'favorites' %}class="active"{% endif %}><a href="{% url 'music:songs' 'favorites' %}">Favorites</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="row">
+        
+                <div class="col-sm-12">
+        
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Playlist Title</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for playlist in play_lists %}
+                                        <tr>
+                                            <td><a href="{% url 'music:playlist_data' playlist.id %}">{{ playlist.name }}</a></td>
+                                            <td>
+                                                    <form action="{% url 'music:delete_playlist' playlist.id %}" method="post" style="display: inline;">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="playlist_id" value="{{ playlist.id }}" />
+                                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                                <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                                            </button>
+                                                        </form>
+                                            </td>
+                            
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+        </div>
+        {% endblock %}
+        
