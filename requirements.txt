@@ -15,7 +15,7 @@ django-allauth==0.39.1
 django-el-pagination==3.2.4
 djangorestframework==3.9.4
 gunicorn==19.9.0
-httplib2==0.9.2
+httplib2==0.19.0
 idna==2.8
 isort==4.3.20
 keyring==10.6.0
